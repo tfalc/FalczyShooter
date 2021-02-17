@@ -7,13 +7,13 @@ let alienInterval;
 
 //movimento e tiro da nave
 function flyShip(event) {
-    if(event.key === 'ArrowUp') {
+    if (event.key === 'ArrowUp') {
         event.preventDefault();
         moveUp();
-    } else if(event.key === 'ArrowDown') {
+    } else if (event.key === 'ArrowDown') {
         event.preventDefault();
         moveDown();
-    } else if(event.key === " ") {
+    } else if (event.key === " ") {
         event.preventDefault();
         fireLaser();
     }
@@ -22,7 +22,7 @@ function flyShip(event) {
 //função de subir
 function moveUp() {
     let topPosition = getComputedStyle(yourShip).getPropertyValue('top');
-    if(topPosition === "0px") {
+    if (topPosition === "0px") {
         return
     } else {
         let position = parseInt(topPosition);
@@ -34,7 +34,7 @@ function moveUp() {
 //função de descer
 function moveDown() {
     let topPosition = getComputedStyle(yourShip).getPropertyValue('top');
-    if(topPosition === "510px"){
+    if (topPosition === "510px") {
         return
     } else {
         let position = parseInt(topPosition);
@@ -67,14 +67,14 @@ function moveLaser(laser) {
         let aliens = document.querySelectorAll('.alien');
 
         aliens.forEach((alien) => { //comparando se cada alien foi atingido, se sim, troca o src da imagem
-            if(checkLaserCollision(laser, alien)) {
+            if (checkLaserCollision(laser, alien)) {
                 alien.src = 'img/explosion.png';
                 alien.classList.remove('alien');
                 alien.classList.add('dead-alien');
             }
         })
 
-        if(xPosition === 340) {
+        if (xPosition === 340) {
             laser.remove();
         } else {
             laser.style.left = `${xPosition + 8}px`;
@@ -99,8 +99,8 @@ function createAliens() {
 function moveAlien(alien) {
     let moveAlienInterval = setInterval(() => {
         let xPosition = parseInt(window.getComputedStyle(alien).getPropertyValue('left'));
-        if(xPosition <= 50) {
-            if(Array.from(alien.classList).includes('dead-alien')) {
+        if (xPosition <= 50) {
+            if (Array.from(alien.classList).includes('dead-alien')) {
                 alien.remove();
             } else {
                 gameOver();
@@ -119,8 +119,8 @@ function checkLaserCollision(laser, alien) {
     let alienTop = parseInt(alien.style.top);
     let alienLeft = parseInt(alien.style.left);
     let alienBottom = alienTop - 30;
-    if(laserLeft != 340 && laserLeft + 40 >= alienLeft) {
-        if(laserTop <= alienTop && laserTop >= alienBottom) {
+    if (laserLeft != 340 && laserLeft + 40 >= alienLeft) {
+        if (laserTop <= alienTop && laserTop >= alienBottom) {
             return true;
         } else {
             return false;
